@@ -86,6 +86,7 @@
 #'   \eqn{\alpha_{j\ell}}, for all \eqn{k,\ell} that are in the same group
 #'   \eqn{g}.
 #'
+#' @importFrom methods new
 #' @importFrom Rglpk Rglpk_solve_LP
 #' @importFrom Matrix sparseMatrix
 #' @export
@@ -504,8 +505,9 @@ coef.quantile_ensemble = function(object, ...) {
 #'   Natural for count data. Default is FALSE.
 #' @param round Should the returned quantile estimates be rounded? Natural for
 #'   count data. Default is FALSE.
+#' @param s Not used (included for method consistency).
 #' @param ... Additional arguments (not used).
-#' 
+#'
 #' @method predict quantile_ensemble
 #' @export
 

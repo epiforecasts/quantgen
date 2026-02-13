@@ -6,6 +6,25 @@
 \usage{
 get_lambda_max(x, y, d, weights = NULL, lp_solver = c("glpk", "gurobi"))
 }
+\arguments{
+\item{x}{Matrix of predictors. If sparse, then passing it an appropriate
+sparse \code{Matrix} class can greatly help optimization.}
+
+\item{y}{Vector of responses.}
+
+\item{d}{Matrix defining the generalized lasso penalty; see details. If
+sparse, then passing it an appropriate sparse \code{Matrix} class can
+greatly help optimization. A convenience function \code{get_diff_mat} for
+constructing trend filtering penalties is provided.}
+
+\item{weights}{Vector of observation weights (to be used in the loss
+function). Default is NULL, which is interpreted as a weight of 1 for each
+observation.}
+
+\item{lp_solver}{One of "glpk" or "gurobi", indicating which LP solver to
+use. If possible, "gurobi" should be used because it is much faster and
+more stable; default is "glpk"; however, because it is open-source.}
+}
 \description{
 Compute lambda max for a quantile generalized lasso problem.
 }

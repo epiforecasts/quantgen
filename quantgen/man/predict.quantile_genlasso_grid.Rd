@@ -14,6 +14,29 @@
   ...
 )
 }
+\arguments{
+\item{object}{The \code{quantile_genlasso} object.}
+
+\item{newx}{Matrix of new predictor variables at which predictions should
+be made.}
+
+\item{sort}{Should the returned quantile estimates be sorted? Default is
+FALSE. Note: this option only makes sense if the values in the stored
+\code{tau} vector are distinct, and sorted in increasing order.}
+
+\item{iso}{Should the returned quantile estimates be passed through isotonic
+regression? Default is FALSE; if TRUE, takes priority over \code{sort}.
+Note: this option only makes sense if the values in the stored \code{tau}
+vector are distinct, and sorted in increasing order.}
+
+\item{nonneg}{Should the returned quantile estimates be truncated at 0?
+Natural for count data. Default is FALSE.}
+
+\item{round}{Should the returned quantile estimates be rounded? Natural for
+count data. Default is FALSE.}
+
+\item{...}{Additional arguments (not used).}
+}
 \description{
 Predict the conditional quantiles at a new set of predictor variables, using
 the generalized lasso coefficients at given tau or lambda values.

@@ -14,6 +14,9 @@
 #'   \code{i}. This allows for fine control of the "cross-validation" process
 #'   (in quotes, because there need not be any crossing going on here). Default
 #'   is NULL; if specified, takes priority over \code{nfolds}.
+#' @inheritParams quantile_genlasso
+#' @inheritParams quantile_genlasso_grid
+#' @inheritParams predict.quantile_genlasso
 #'
 #' @return A list with the following components:
 #'   \item{qgl_obj}{A \code{quantile_genlasso} object obtained by fitting on the
@@ -152,6 +155,8 @@ plot.cv_quantile_genlasso = function(x, legend_pos="topleft", ...) {
 #' Predict the conditional quantiles at a new set of predictor variables, using
 #' the generalized lasso coefficients tuned by cross-validation.
 #'
+#' @inheritParams predict.quantile_genlasso
+#'
 #' @details This just calls the \code{predict} function on the
 #'   \code{quantile_genlasso} that is stored within the given
 #'   \code{cv_quantile_genlasso} object.
@@ -189,6 +194,7 @@ predict.cv_quantile_genlasso = function(object, newx, s=NULL, sort=FALSE,
 #'   constraints at the training points \code{x}.
 #' @param verbose Should progress be printed out to the console? Default is
 #'   FALSE.
+#' @inheritParams quantile_genlasso
 #'
 #' @return A \code{quantile_genlasso} object, with solutions at quantile levels
 #'   \code{tau_new}.

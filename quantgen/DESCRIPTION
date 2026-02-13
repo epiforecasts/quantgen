@@ -14,12 +14,16 @@ Description: Tools for generalized quantile modeling: regularized quantile
     cross-validation, quantile extrapolation, and quantile ensembles.   
 Encoding: UTF-8
 License: GPL-2
-RoxygenNote: 7.1.2
-Imports: 
+RoxygenNote: 7.3.3
+Imports:
     Matrix,
+    methods,
     Rglpk
-Suggests: 
+Suggests:
     gurobi,
+    knitr,
+    rmarkdown,
     testthat,
     mockery
+VignetteBuilder: knitr
 Config/testthat/edition: 3

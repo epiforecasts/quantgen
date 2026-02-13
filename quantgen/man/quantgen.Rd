@@ -2,6 +2,7 @@
 % Please edit documentation in R/quantgen.R
 \docType{package}
 \name{quantgen}
+\alias{quantgen-package}
 \alias{quantgen}
 \title{quantgen: Tools for generalized quantile modeling}
 \description{
@@ -13,4 +14,22 @@ ensembles.
 \details{
 We recommend the "getting started" and other vignettes, provided online:
 https://ryantibs.github.io/quantgen/.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://ryantibs.github.io/quantgen/}
+  \item \url{https://github.com/ryantibs/quantgen/}
+  \item Report bugs at \url{https://github.com/ryantibs/quantgen/}
+}
+
+}
+\author{
+\strong{Maintainer}: Ryan Tibshirani \email{ryantibs@cmu.edu}
+
+Authors:
+\itemize{
+  \item Logan Brooks \email{lcbrooks@andrew.cmu.edu}
+}
+
 }

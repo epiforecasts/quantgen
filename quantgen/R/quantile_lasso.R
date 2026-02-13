@@ -17,7 +17,8 @@
 #'   observation.  
 #' @param no_pen_vars Indices of the variables that should be excluded from the
 #'   lasso penalty. Default is \code{c()}, which means that no variables are to
-#'   be excluded. 
+#'   be excluded.
+#' @inheritParams quantile_genlasso
 #'
 #' @return A list with the following components:
 #'   \item{beta}{Matrix of lasso coefficients, of dimension = (number of
@@ -93,6 +94,8 @@ quantile_lasso = function(x, y, tau, lambda, weights=NULL, no_pen_vars=c(),
 #'   level. Default is 30.  
 #' @param lambda_min_ratio Ratio of the minimum to maximum lambda value, for
 #'   each quantile levels. Default is 1e-3.
+#' @inheritParams quantile_lasso
+#' @inheritParams quantile_genlasso
 #'
 #' @details This function forms a \code{lambda} vector either determined by the
 #'   \code{nlambda} and \code{lambda_min_ratio} arguments, or the \code{lambda}
@@ -103,7 +106,7 @@ quantile_lasso = function(x, y, tau, lambda, weights=NULL, no_pen_vars=c(),
 #'   \code{nlambda} and \code{lambda_min_ratio}) are as in the latter function;
 #'   noncrossing constraints are disallowed. The associated \code{predict}
 #'   function is just that for the \code{quantile_genlasso_grid} class.
-#' 
+#'
 #' @export
 
 quantile_lasso_grid = function(x, y, tau, lambda=NULL, nlambda=30,
@@ -148,10 +151,13 @@ quantile_lasso_grid = function(x, y, tau, lambda=NULL, nlambda=30,
 #'   \code{i}. This allows for fine control of the "cross-validation" process
 #'   (in quotes, because there need not be any crossing going on here). Default
 #'   is NULL; if specified, takes priority over \code{nfolds}.
+#' @inheritParams quantile_lasso_grid
+#' @inheritParams quantile_genlasso
+#' @inheritParams predict.quantile_genlasso
 #'
 #' @return A list with the following components:
 #'   \item{qgl_obj}{A \code{quantile_lasso} object obtained by fitting on the
-#'   full training set, at all quantile levels and their corresponding optimal  
+#'   full training set, at all quantile levels and their corresponding optimal
 #'   lambda values}
 #'   \item{cv_mat}{Matrix of cross-validation errors (as measured by quantile
 #'   loss), of dimension (number of tuning parameter values) x (number of
@@ -167,8 +173,8 @@ quantile_lasso_grid = function(x, y, tau, lambda=NULL, nlambda=30,
 #'   training set. Past \code{verbose}, the arguments are as in
 #'   \code{predict.quantile_lasso}, and control what happens with the
 #'   predictions made on the validation sets. The associated \code{predict}
-#'   function is just that for the \code{cv_quantile_genlasso} class.   
-#' 
+#'   function is just that for the \code{cv_quantile_genlasso} class.
+#'
 #' @export
 
 cv_quantile_lasso = function(x, y, tau, lambda=NULL, nlambda=30,
@@ -221,19 +227,21 @@ cv_quantile_lasso = function(x, y, tau, lambda=NULL, nlambda=30,
 #'   constraints at the training points \code{x}.
 #' @param verbose Should progress be printed out to the console? Default is
 #'   FALSE.
+#' @inheritParams quantile_lasso
+#' @inheritParams quantile_genlasso
 #'
 #' @return A \code{quantile_lasso} object, with solutions at quantile levels
-#'   \code{tau_new}. 
-#' 
+#'   \code{tau_new}.
+#'
 #' @details This function simply infers, for each quantile level in
-#'   \code{tau_new}, a (very) roughly-CV-optimal tuning parameter value, then   
-#'   calls \code{quantile_lasso} at the new quantile levels and corresponding 
+#'   \code{tau_new}, a (very) roughly-CV-optimal tuning parameter value, then
+#'   calls \code{quantile_lasso} at the new quantile levels and corresponding
 #'   tuning parameter values. If not specified, the arguments \code{weights},
 #'   \code{no_pen_vars}, \code{intercept}, \code{standardize}, \code{lp_solver},
 #'   \code{time_limit}, \code{warm_start}, \code{params}, \code{transform},
 #'   \code{inv_transorm}, \code{jitter} are all inherited from the given
-#'   \code{cv_quantile_lasso} object. 
-#' 
+#'   \code{cv_quantile_lasso} object.
+#'
 #' @export
 
 refit_quantile_lasso = function(obj, x, y, tau_new, weights=NULL,
@@ -264,7 +272,13 @@ refit_quantile_lasso = function(obj, x, y, tau_new, weights=NULL,
 
 #' Quantile lasso objective
 #'
-#' Compute lasso objective for a single tau and lambda value.    
+#' Compute lasso objective for a single tau and lambda value.
+#'
+#' @param x Matrix of predictors.
+#' @param y Vector of responses.
+#' @param beta Vector of coefficients.
+#' @param tau Quantile level.
+#' @param lambda Tuning parameter value.
 #'
 #' @export
 

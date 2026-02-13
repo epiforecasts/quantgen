@@ -6,6 +6,19 @@
 \usage{
 quantile_genlasso_objective(x, y, d, beta, tau, lambda)
 }
+\arguments{
+\item{x}{Matrix of predictors.}
+
+\item{y}{Vector of responses.}
+
+\item{d}{Matrix defining the generalized lasso penalty.}
+
+\item{beta}{Vector of coefficients.}
+
+\item{tau}{Quantile level.}
+
+\item{lambda}{Tuning parameter value.}
+}
 \description{
 Compute generalized lasso objective for a single tau and lambda value.
 }

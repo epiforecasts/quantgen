@@ -6,6 +6,13 @@
 \usage{
 quantile_loss(yhat, y, tau)
 }
+\arguments{
+\item{yhat}{Vector or matrix of predicted values.}
+
+\item{y}{Vector of observed values.}
+
+\item{tau}{Quantile level.}
+}
 \description{
 Compute the quantile (tilted absolute) loss for a single tau value.
 }

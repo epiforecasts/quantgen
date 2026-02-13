@@ -27,7 +27,7 @@
 #'   the coefficients in the optimization problem. These can be constants (to
 #'   place the same bound on each coefficient) or vectors of length equal to the
 #'   number of predictors (to place a potentially different bound on each
-#'   coefficient). Default is code{-Inf} and \code{Inf} for \code{lb} and
+#'   coefficient). Default is \code{-Inf} and \code{Inf} for \code{lb} and
 #'   \code{ub}, respectively, which effectively means no constraints are used.
 #'   Two important notes: when \code{intercept} is TRUE, the constraints are
 #'   *not* placed on the intercept; and when \code{standardize} is TRUE, the
@@ -77,7 +77,7 @@
 #'   \item{beta}{Matrix of generalized lasso coefficients, of dimension =
 #'   (number of features + 1) x (number of quantile levels) assuming
 #'   \code{intercept=TRUE}, else (number of features) x (number of quantile
-#'   levels). Note}{these coefficients will always be on the appropriate scale;
+#'   levels). Note: these coefficients will always be on the appropriate scale;
 #'   they are always on the scale of original features, even if
 #'   \code{standardize=TRUE}}
 #'   \item{status}{Vector of status flags returned by Gurobi's or GLPK's LP
@@ -458,6 +458,7 @@ predict.quantile_genlasso = function(object, newx, s=NULL, sort=FALSE,
 #'   level. Default is 30.
 #' @param lambda_min_ratio Ratio of the minimum to maximum lambda value, for
 #'   each quantile levels. Default is 1e-3.
+#' @inheritParams quantile_genlasso
 #'
 #' @details This function forms a \code{lambda} vector either determined by the
 #'   \code{nlambda} and \code{lambda_min_ratio} arguments, or the \code{lambda}
@@ -511,6 +512,8 @@ quantile_genlasso_grid = function(x, y, d, tau, lambda=NULL, nlambda=30,
 #' Lambda max for quantile generalized lasso
 #'
 #' Compute lambda max for a quantile generalized lasso problem.
+#'
+#' @inheritParams quantile_genlasso
 #'
 #' @details This is not exact, but should be close to the exact value of
 #'   \eqn{\lambda} such that \eqn{D \hat\beta = 0} at the solution
@@ -578,6 +581,11 @@ get_lambda_max = function(x, y, d, weights=NULL, lp_solver=c("glpk","gurobi")) {
 #'
 #' Compute a lambda sequence for a quantile generalized lasso problem.
 #'
+#' @inheritParams quantile_genlasso
+#' @inheritParams quantile_genlasso_grid
+#' @param transform A function to transform y before solving. Default is NULL
+#'   (no transformation).
+#'
 #' @details This function returns \code{nlambda} values log-spaced in between
 #'   \code{lambda_max}, as computed by \code{get_lambda_max}, and
 #'   \code{lamdba_max * lambda_min_ratio}. If \code{d} is not specified, we will
@@ -608,6 +616,8 @@ get_lambda_seq = function(x, y, d, nlambda, lambda_min_ratio, weights=NULL,
 #'
 #' Predict the conditional quantiles at a new set of predictor variables, using
 #' the generalized lasso coefficients at given tau or lambda values.
+#'
+#' @inheritParams predict.quantile_genlasso
 #'
 #' @details This function operates as in the \code{predict.quantile_genlasso}
 #'   function for a \code{quantile_genlasso} object, but with a few key
@@ -664,6 +674,13 @@ predict.quantile_genlasso_grid = function(object, newx, sort=FALSE, iso=FALSE,
 #' Quantile generalized lasso objective
 #'
 #' Compute generalized lasso objective for a single tau and lambda value.
+#'
+#' @param x Matrix of predictors.
+#' @param y Vector of responses.
+#' @param d Matrix defining the generalized lasso penalty.
+#' @param beta Vector of coefficients.
+#' @param tau Quantile level.
+#' @param lambda Tuning parameter value.
 #'
 #' @export
 

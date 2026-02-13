@@ -22,6 +22,8 @@
 prediction points) x (number or ensemble components) x (number of quantile
 levels).}
 
+\item{s}{Not used (included for method consistency).}
+
 \item{sort}{Should the returned quantile estimates be sorted? Default is
 TRUE.}
 

@@ -17,6 +17,40 @@ get_lambda_seq(
   transform = NULL
 )
 }
+\arguments{
+\item{x}{Matrix of predictors. If sparse, then passing it an appropriate
+sparse \code{Matrix} class can greatly help optimization.}
+
+\item{y}{Vector of responses.}
+
+\item{d}{Matrix defining the generalized lasso penalty; see details. If
+sparse, then passing it an appropriate sparse \code{Matrix} class can
+greatly help optimization. A convenience function \code{get_diff_mat} for
+constructing trend filtering penalties is provided.}
+
+\item{nlambda}{Number of lambda values to consider, for each quantile
+level. Default is 30.}
+
+\item{lambda_min_ratio}{Ratio of the minimum to maximum lambda value, for
+each quantile levels. Default is 1e-3.}
+
+\item{weights}{Vector of observation weights (to be used in the loss
+function). Default is NULL, which is interpreted as a weight of 1 for each
+observation.}
+
+\item{intercept}{Should an intercept be included in the regression model?
+Default is TRUE.}
+
+\item{standardize}{Should the predictors be standardized (to have unit
+variance) before fitting? Default is TRUE.}
+
+\item{lp_solver}{One of "glpk" or "gurobi", indicating which LP solver to
+use. If possible, "gurobi" should be used because it is much faster and
+more stable; default is "glpk"; however, because it is open-source.}
+
+\item{transform}{A function to transform y before solving. Default is NULL
+(no transformation).}
+}
 \description{
 Compute a lambda sequence for a quantile generalized lasso problem.
 }

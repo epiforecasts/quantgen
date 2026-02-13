@@ -9,7 +9,12 @@ log_pad(a = 1, b = 1)
 
 exp_pad(a = 1, b = 1)
 }
+\arguments{
+\item{a}{Scaling parameter. Default is 1.}
+
+\item{b}{Shift parameter. Default is 1.}
+}
 \description{
-Returns functions that map \eqn{x \mapsto \log(ax+b)} and \eqn{x \mapsto 
+Returns functions that map \eqn{x \mapsto \log(ax+b)} and \eqn{x \mapsto
 (\exp(x)-b)/a}. (These are inverses.)
 }

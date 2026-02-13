@@ -38,6 +38,27 @@ refit_quantile_genlasso(
 
 \item{tau_new}{Vector of new quantile levels at which to fit new solutions.}
 
+\item{weights}{Vector of observation weights (to be used in the loss
+function). Default is NULL, which is interpreted as a weight of 1 for each
+observation.}
+
+\item{intercept}{Should an intercept be included in the regression model?
+Default is TRUE.}
+
+\item{standardize}{Should the predictors be standardized (to have unit
+variance) before fitting? Default is TRUE.}
+
+\item{lb, ub}{Lower and upper bounds, respectively, to place as constraints on
+the coefficients in the optimization problem. These can be constants (to
+place the same bound on each coefficient) or vectors of length equal to the
+number of predictors (to place a potentially different bound on each
+coefficient). Default is \code{-Inf} and \code{Inf} for \code{lb} and
+\code{ub}, respectively, which effectively means no constraints are used.
+Two important notes: when \code{intercept} is TRUE, the constraints are
+*not* placed on the intercept; and when \code{standardize} is TRUE, the
+constraints are placed on the *standardized scale* (they are used in the 
+optimization problem whose predictors have been standardized).}
+
 \item{noncross}{Should noncrossing constraints be applied? These force the
 estimated quantiles to be properly ordered across all quantile levels being
 considered. The default is FALSE. If TRUE, then noncrossing constraints are
@@ -48,6 +69,40 @@ argument \code{x0}. Note: this option only makes sense if the values in the
 \item{x0}{Matrix of points used to define the noncrossing
 constraints. Default is NULL, which means that we consider noncrossing
 constraints at the training points \code{x}.}
+
+\item{lp_solver}{One of "glpk" or "gurobi", indicating which LP solver to
+use. If possible, "gurobi" should be used because it is much faster and
+more stable; default is "glpk"; however, because it is open-source.}
+
+\item{time_limit}{This sets the maximum amount of time (in seconds) to allow
+Gurobi or GLPK to solve any single quantile generalized lasso problem (for
+a single tau and lambda value). Default is NULL, which means unlimited
+time.}
+
+\item{warm_starts}{Should warm starts be used in the LP solver (from one LP
+solve to the next)? Only supported for Gurobi.}
+
+\item{params}{List of control parameters to pass to Gurobi or GLPK. Default
+is \code{list()} which means no additional parameters are passed. For
+example: with Gurobi, we can use \code{list(Threads=4)} to specify that
+Gurobi should use 4 threads when available. (Note that if a time limit is
+specified through this \code{params} list, then its value will be overriden
+by the last argument \code{time_limit}, assuming the latter is not NULL.)}
+
+\item{transform, inv_trans}{The first is a function to transform y before
+solving the quantile generalized lasso; the second is the corresponding
+inverse transform. For example: for count data, we might want to model
+log(1+y) (which would be the transform, and the inverse transform would be
+exp(x)-1). Both \code{transform} and \code{inv_trans} should be
+vectorized. Convenience functions \code{log_pad} and \code{exp_pad} are
+provided (these are inverses), as well as \code{logit_pad} and
+\code{sigmd_pad} (these are inverses).}
+
+\item{jitter}{Function for applying random jitter to y, which might help
+optimization. For example: for count data, there can be lots of ties (with
+or without transformation of y), which can make optimization more
+difficult. The function \code{jitter} should take an integer n and return n
+random draws. A convenience function \code{unif_jitter} is provided.}
 
 \item{verbose}{Should progress be printed out to the console? Default is
 FALSE.}

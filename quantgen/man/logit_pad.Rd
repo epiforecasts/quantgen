@@ -9,6 +9,11 @@ logit_pad(a = 1, b = 0.01)
 
 sigmd_pad(a = 1, b = 0.011)
 }
+\arguments{
+\item{a}{Scaling parameter. Default is 1.}
+
+\item{b}{Shift parameter. Default is 0.01.}
+}
 \description{
 Returns functions that map \eqn{x \mapsto \log(\frac{ax+b}{1-ax+b})} and
 \eqn{x \mapsto \frac{\exp(x)(1+b)-b}{a(1+\exp(x))}}. (These are inverses.)

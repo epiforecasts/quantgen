@@ -6,6 +6,11 @@
 \usage{
 unif_jitter(a = 0, b = 0.01)
 }
+\arguments{
+\item{a}{Lower bound. Default is 0.}
+
+\item{b}{Upper bound. Default is 0.01.}
+}
 \description{
 Function to generate random draws from \eqn{\mathrm{Unif}[a,b]}.
 }

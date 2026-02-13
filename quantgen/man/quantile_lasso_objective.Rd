@@ -6,6 +6,17 @@
 \usage{
 quantile_lasso_objective(x, y, beta, tau, lambda)
 }
+\arguments{
+\item{x}{Matrix of predictors.}
+
+\item{y}{Vector of responses.}
+
+\item{beta}{Vector of coefficients.}
+
+\item{tau}{Quantile level.}
+
+\item{lambda}{Tuning parameter value.}
+}
 \description{
 Compute lasso objective for a single tau and lambda value.
 }

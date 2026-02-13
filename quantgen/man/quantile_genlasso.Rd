@@ -60,7 +60,7 @@ variance) before fitting? Default is TRUE.}
 the coefficients in the optimization problem. These can be constants (to
 place the same bound on each coefficient) or vectors of length equal to the
 number of predictors (to place a potentially different bound on each
-coefficient). Default is code{-Inf} and \code{Inf} for \code{lb} and
+coefficient). Default is \code{-Inf} and \code{Inf} for \code{lb} and
 \code{ub}, respectively, which effectively means no constraints are used.
 Two important notes: when \code{intercept} is TRUE, the constraints are
 *not* placed on the intercept; and when \code{standardize} is TRUE, the
@@ -120,7 +120,7 @@ A list with the following components:
   \item{beta}{Matrix of generalized lasso coefficients, of dimension =
   (number of features + 1) x (number of quantile levels) assuming
   \code{intercept=TRUE}, else (number of features) x (number of quantile
-  levels). Note}{these coefficients will always be on the appropriate scale;
+  levels). Note: these coefficients will always be on the appropriate scale;
   they are always on the scale of original features, even if
   \code{standardize=TRUE}}
   \item{status}{Vector of status flags returned by Gurobi's or GLPK's LP

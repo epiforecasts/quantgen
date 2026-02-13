@@ -92,6 +92,10 @@ setup_xyd = function(x, y, d, weights=NULL, intercept=TRUE, standardize=TRUE,
 #'
 #' Compute the quantile (tilted absolute) loss for a single tau value.
 #'
+#' @param yhat Vector or matrix of predicted values.
+#' @param y Vector of observed values.
+#' @param tau Quantile level.
+#'
 #' @export
 
 quantile_loss = function(yhat, y, tau) {
@@ -101,8 +105,11 @@ quantile_loss = function(yhat, y, tau) {
 
 #' Convenience functions for log/exp mappings
 #'
-#' Returns functions that map \eqn{x \mapsto \log(ax+b)} and \eqn{x \mapsto 
+#' Returns functions that map \eqn{x \mapsto \log(ax+b)} and \eqn{x \mapsto
 #' (\exp(x)-b)/a}. (These are inverses.)
+#'
+#' @param a Scaling parameter. Default is 1.
+#' @param b Shift parameter. Default is 1.
 #'
 #' @export
 
@@ -116,6 +123,11 @@ exp_pad = function(a=1, b=1) return(function(x) (exp(x)-b)/a)
 #'
 #' Returns functions that map \eqn{x \mapsto \log(\frac{ax+b}{1-ax+b})} and
 #' \eqn{x \mapsto \frac{\exp(x)(1+b)-b}{a(1+\exp(x))}}. (These are inverses.)
+#'
+#' @param a Scaling parameter. Default is 1.
+#' @param b Shift parameter. Default is 0.01.
+#'
+#' @export
 
 logit_pad = function(a=1, b=0.01) return(function(x) log((a*x+b) / (1-a*x+b))) 
 
@@ -127,6 +139,9 @@ sigmd_pad = function(a=1, b=0.011) return(function(x) (exp(x) * (1+b)-b) /
 #' Convenience function for uniform jitter
 #'
 #' Function to generate random draws from \eqn{\mathrm{Unif}[a,b]}.
+#'
+#' @param a Lower bound. Default is 0.
+#' @param b Upper bound. Default is 0.01.
 #'
 #' @export
 
